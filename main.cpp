@@ -64,10 +64,10 @@ int main() {
 
         //movement ninja character
         sf::Vector2f NinjaMovement(0.f , 0.f);
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) NinjaMovement.x -=1.f;
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) NinjaMovement.x +=1.f;
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) NinjaMovement.y -=1.f;
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))  NinjaMovement.y +=1.f;
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) NinjaMovement.x -=0.5f;
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) NinjaMovement.x +=0.5f;
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) NinjaMovement.y -=0.2f;
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))  NinjaMovement.y +=0.2f;
 
         if(NinjaMovement !=sf::Vector2f(0.f ,0.f)){
             NinjaMovement= NinjaMovement*(speed * clock.restart().asSeconds());
