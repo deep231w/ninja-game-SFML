@@ -25,6 +25,8 @@ int main() {
     //setup ninja character position
     ninjaSprite.setPosition(100,200);
 
+
+
     // //load image
     // sf::Texture texture;
     // if(!texture.loadFromFile("nbg.jpg")){
@@ -50,12 +52,29 @@ int main() {
 
 
 
+    const float speed= 200.0f;
+    sf::Clock clock;
+
     while (window.isOpen()) {
         sf::Event event;
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed)
                 window.close();
         }
+
+        //movement ninja character
+        sf::Vector2f NinjaMovement(0.f , 0.f);
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) NinjaMovement.x -=1.f;
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) NinjaMovement.x +=1.f;
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) NinjaMovement.y -=1.f;
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))  NinjaMovement.y +=1.f;
+
+        if(NinjaMovement !=sf::Vector2f(0.f ,0.f)){
+            NinjaMovement= NinjaMovement*(speed * clock.restart().asSeconds());
+            ninjaSprite.move(NinjaMovement);
+        }
+        ninjaSprite.move(NinjaMovement);
+
 
         window.clear();
         window.draw(spriteBg1);
