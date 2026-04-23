@@ -2,7 +2,7 @@
 
 int main() {
     sf::RenderWindow window(sf::VideoMode(800, 600), "My First Game");
-    
+    window.setFramerateLimit(60);
 
     std::map<std::string , sf::Texture> textures;
 
@@ -25,31 +25,14 @@ int main() {
     //setup ninja character position
     ninjaSprite.setPosition(100,200);
 
-
-
-    // //load image
-    // sf::Texture texture;
-    // if(!texture.loadFromFile("nbg.jpg")){
-    //     return EXIT_FAILURE;
-    // }
-
-
-
-    // sf::Vector2u textureSize= texture.getSize();
-    // sf::Vector2u windowSize= window.getSize();
-
-    // float scaleX= static_cast<float>(windowSize.x) / textureSize.x;
-    // float scaleY= static_cast<float>(windowSize.y) / textureSize.y;
-
-    // sf::Sprite sprite(texture );
-
-    // sprite.setScale(scaleX, scaleY);
-
-    // //add character
-    // sf::Texture ninjapixel;
-    // if(!ninjapixel.loadFromFile("ninjs-pixel.png")) return EXIT_FAILURE;
-
-
+    //ground
+    sf::Vertex ground[]=
+    {
+        sf::Vertex(sf::Vector2f(0 ,500)),
+        sf::Vertex(sf::Vector2f(800,500))
+    };
+    ground[0].color=sf::Color::White;
+    ground[1].color=sf::Color::White;
 
 
     const float speed= 200.0f;
@@ -79,6 +62,7 @@ int main() {
         window.clear();
         window.draw(spriteBg1);
         window.draw(ninjaSprite);
+        window.draw(ground , 2 , sf::Lines);
         window.display();
     }
 }
