@@ -1,5 +1,5 @@
 #include <SFML/Graphics.hpp>
-
+#include<iostream>
 int main() {
     sf::RenderWindow window(sf::VideoMode(800, 600), "My First Game");
     window.setFramerateLimit(60);
@@ -34,6 +34,7 @@ int main() {
     ground[0].color=sf::Color::White;
     ground[1].color=sf::Color::White;
 
+    std::cout << ninjaSprite.getGlobalBounds().width << std::endl;
 
     const float speed= 200.0f;
     sf::Clock clock;
@@ -49,16 +50,31 @@ int main() {
         }
 
         //movement ninja character
-        sf::Vector2f NinjaMovement(0.f , 0.f);
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) NinjaMovement.x -=0.5f;
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) NinjaMovement.x +=0.5f;
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) NinjaMovement.y -=0.2f;
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))  NinjaMovement.y +=0.2f;
+        auto bounds= ninjaSprite.getGlobalBounds();
+        float left= bounds.left;
+        float right= bounds.left + bounds.width;
 
-        if(NinjaMovement !=sf::Vector2f(0.f ,0.f)){
-            NinjaMovement= NinjaMovement*(speed * clock.restart().asSeconds());
-            ninjaSprite.move(NinjaMovement);
+        sf::Vector2f NinjaMovement(0.f , 0.f);
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && ninjaSprite.getPosition().x>0) {
+            NinjaMovement.x -=10.f;
         }
+
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && right< window.getSize().x) {
+            NinjaMovement.x +=10.f;
+        }
+
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)&& ninjaSprite.getPosition().y> 0) {
+            NinjaMovement.y -=10.f;
+        }
+
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && ninjaSprite.getGlobalBounds().top + ninjaSprite.getGlobalBounds().height< window.getSize().y)  {
+            NinjaMovement.y +=10.f;
+        }
+
+        // if(NinjaMovement !=sf::Vector2f(0.f ,0.f)){
+        //     NinjaMovement= NinjaMovement*(speed * clock.restart().asSeconds());
+        //     ninjaSprite.move(NinjaMovement);
+        // }
         ninjaSprite.move(NinjaMovement);
 
 
